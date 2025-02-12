@@ -6,7 +6,6 @@
 model <- '
 gpa ~ am + iq
 am ~ ses
-ses ~~ iq
 '
 sol <- sem(model, profile)
 
