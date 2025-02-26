@@ -1,4 +1,4 @@
-# EDUC 885 / PATH ANALYSIS / EXAMPLE 2
+# EDUC 885 / SEM -- PATH ANALYSIS / EXAMPLE 3
 # Data file: ingram_et_al_2001.rda
 # - Matrix: Cov
 
