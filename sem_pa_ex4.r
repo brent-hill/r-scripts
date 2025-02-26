@@ -30,3 +30,20 @@ resid(sol, type="normalized")
 
 modificationIndices(sol)
 modificationIndices(sol, minimum.value=10)
+
+
+
+
+model2 <-
+'
+# Structural model
+acqorder ~ B42*length + B43*frequse
+frequse ~ B31*polysemy
+polysemy ~ G11*entdate
+length ~ G21*entdate
+polysemy ~~ length
+
+# Indirect effects
+IE1 := G11*B31*B43
+IE2 := G21*B42
+'
