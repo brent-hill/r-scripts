@@ -21,9 +21,9 @@ fitMeasures(sol1, c("chisq","df","pvalue"))
 fitMeasures(sol1, c("cfi","tli","rmsea","srmr"))
 
 # Local fit
-resid(sol1, type="normalized")
-resid(sol1, type="standardized")
-resid(sol1, type="cor")
+residuals(sol1, type="normalized")
+residuals(sol1, type="standardized")
+residuals(sol1, type="cor")
 modificationIndices(sol1)                    # Shows all MIs
 modificationIndices(sol1, minimum.value=5)   # Show only MIs ≥ 5
 
