@@ -3,46 +3,54 @@
 # - Data frame: profile
 
 # Example highlights:
-# - This model has a very good fit, so no model modification (respecification) is needed.
-# - Estimating/testing indirect effects is also demonstrated.
+# - This model has a very good fit, so no model modification
+#   (respecification) is needed.
+# - Specifying/estimating/testing indirect effects is also demonstrated.
+
+# Basic Path Model --------------------------------------------------------
 
 # Initial model
 model <- '
 gpa ~ am + iq
 am ~ ses
 '
-sol <- sem(model, profile)
+sol <- sem(model, profile, fixed.x=FALSE)
 
 # - Parameter estimates and significance tests
 summary(sol, standardized=TRUE)
 parameterEstimates(sol, standardized=TRUE)
 
 # - Global fit
-fitMeasures(sol)   # All global test
-fitMeasures(sol, c("chisq","df","pvalue"))   # Request specific test statistics
+fitMeasures(sol)                           # All global test
+fitMeasures(sol, c("chisq","df","pvalue")) # Request specific global fit tests
 fitMeasures(sol, c("cfi","rmsea","srmr"))
 
 # - Diagnostics for model modification
 # - - Modification indices (MI)
-modificationIndices(sol)
+modificationIndices(sol, sort=0)
 # - - Covariance residuals
-resid(sol, type="standardized")   # Computes SCRs
-resid(sol, type="normalized")     # Computes NCRs
+residuals(sol, type="standardized")   # Computes SCRs
+residuals(sol, type="normalized")     # Computes NCRs
+residuals(sol, type="cor")            # Computes CorRes
 
 
-
-# Estimating/testing indirect effects
-# - Sobel method
-model_ie <- '
+# Model with Indirect Effects ---------------------------------------------
+# Specify model and define indirect effects
+# Note: This is the same structural model as that given above; the only
+# difference here is the use of coefficient labels and defining an indirect
+# effect.
+model <- '
 gpa ~ B21*am + G22*iq
 am ~ G11*ses
-ie_gpa.ses := B21*G11
+ie := B21*G11
 '
-sol_ie <- sem(model_ie, profile)
-summary(sol_ie, standardized=TRUE)
-parameterEstimates(sol_ie, standardized=TRUE)
+# Estimating/testing indirect effects
+# - Sobel method (default)
+sol.sobel <- sem(model, profile, fixed.x=FALSE)
+summary(sol.sobel, standardized=TRUE)
+parameterEstimates(sol.sobel, standardized=TRUE)
 
 # - Bootstrapping method
-sol_ie_bs <- sem(model_ie, profile, se="bootstrap", bootstrap=1000)
-summary(sol_ie_bs, standardized=TRUE)
-parameterEstimates(sol_ie_bs, standardized=TRUE)
+sol.bs <- sem(model, profile, fixed.x=FALSE, se="bootstrap", bootstrap=1000)
+summary(sol.bs, standardized=TRUE)
+parameterEstimates(sol.bs, standardized=TRUE)
