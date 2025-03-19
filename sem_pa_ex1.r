@@ -7,6 +7,7 @@
 #   (respecification) is needed.
 # - Specifying/estimating/testing indirect effects is also demonstrated.
 
+
 # Basic Path Model --------------------------------------------------------
 
 # Initial model
@@ -14,7 +15,7 @@ model <- '
 gpa ~ am + iq
 am ~ ses
 '
-sol <- sem(model, profile, fixed.x=FALSE)
+sol <- sem(model, profile)
 
 # - Parameter estimates and significance tests
 summary(sol, standardized=TRUE)
@@ -46,11 +47,11 @@ ie := B21*G11
 '
 # Estimating/testing indirect effects
 # - Sobel method (default)
-sol.sobel <- sem(model, profile, fixed.x=FALSE)
+sol.sobel <- sem(model, profile)
 summary(sol.sobel, standardized=TRUE)
 parameterEstimates(sol.sobel, standardized=TRUE)
 
 # - Bootstrapping method
-sol.bs <- sem(model, profile, fixed.x=FALSE, se="bootstrap", bootstrap=1000)
+sol.bs <- sem(model, profile, se="bootstrap", bootstrap=1000)
 summary(sol.bs, standardized=TRUE)
 parameterEstimates(sol.bs, standardized=TRUE)
