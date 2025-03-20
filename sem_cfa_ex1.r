@@ -2,20 +2,23 @@
 # Data file: holzinger_swineford.rda
 # - Data frame: scores
 
-# Example highlights:
+# Example notes:
 # - Classic dataset from Holzinger and Swineford (1939)
+# - Initial model (model 1) intentionally misspecified (`lozenges` loaded
+#   on `Verbal`)
 
 
-# Initial Model -----------------------------------------------------------
+# Model 1 -----------------------------------------------------------------
 
 model1 <- '
-Spatial =~ 1*visperc + cubes
-Verbal =~ lozenges + 1*parcomp + sencomp + wordmng
-Spatial ~~ Verbal
+Spatial =~ visperc + cubes
+Verbal =~ parcomp + sencomp + wordmng + lozenges
+# Spatial ~~ 1*Spatial
+# Verbal ~~ 1*Verbal
 '
 
 # Parameter estimates and significance tests
-sol1 <- cfa(model1)
+sol1 <- cfa(model1, scores, std.lv=TRUE) #, auto.fix.first=FALSE)
 summary(sol1, standardized=TRUE, rsquare=TRUE)
 parameterEstimates(sol1, standardized=TRUE)
 
