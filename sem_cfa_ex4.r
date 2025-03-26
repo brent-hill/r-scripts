@@ -1,10 +1,10 @@
 # EDUC 885 / SEM -- CFA / EXAMPLE 4
-# Data file: etoh_motives.rda
-# - Matrix: COV_etoh.mot (covariance matrix)
+# Data file: admq.rda
+# - Matrix: COV_admq (covariance matrix)
 
 # Example notes:
-# - Covariance matrix (COV_etoh.mot) used as input data
-# - The sample size is N = 250
+# - Covariance matrix (COV_admq) used as input data
+# - The sample size is N = 500
 # - Possible method effect present
 
 
@@ -17,7 +17,7 @@ EnhMot =~ enh1 + enh2 + enh3 + enh4
 '
 
 # Parameter estimates and significance tests
-sol1 <- cfa(model1, sample.cov=COV_etoh.mot, sample.nobs=500)
+sol1 <- cfa(model1, sample.cov=COV_admq, sample.nobs=500)
 summary(sol1, standardized=TRUE, rsquare=TRUE)
 parameterEstimates(sol1, standardized=TRUE)
 
