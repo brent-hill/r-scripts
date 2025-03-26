@@ -1,13 +1,13 @@
 # EDUC 885 / SEM -- CFA / EXAMPLE 2
 # Data file: kabc.rda
-# - Matrix: COV (covariance matrix)
+# - Matrix: COV_kabc (covariance matrix)
 # - Scalar: N (sample size)
 
 # Example notes:
-# - Initial model specified with orthogonal factors per relevant theory
-# - Covariance matrix (COV) used as input data
-# - The sample size (200) is stored in the scalar N, and that can be used
-#   with the `sample.obs` argument in the `cfa()` function
+# - Initial model specified with orthogonal (uncorrelated) factors per
+#   relevant substantive theory
+# - Covariance matrix (COV_kabc) used as input data
+# - The sample size is N = 200
 # - UVI is used [argument `std.lv=TRUE` in the `cfa()` function]
 # - Reliability and AVE computed for model 3
 
@@ -21,7 +21,7 @@ Seq ~~ 0*Sim
 '
 
 # Parameter estimates and significance tests
-sol1 <- cfa(model1, std.lv=TRUE, sample.cov=COV, sample.nobs=N)  # UVI specified here with `std.lv=TRUE`
+sol1 <- cfa(model1, std.lv=TRUE, sample.cov=COV_kabc, sample.nobs=200)  # UVI specified here with `std.lv=TRUE`
 summary(sol1, standardized=TRUE, rsquare=TRUE)
 parameterEstimates(sol1, standardized=TRUE)
 
@@ -46,7 +46,7 @@ Seq =~ hm + nr + wo
 Sim =~ gc + tr + sm + ma + ps
 Seq ~~ Sim
 '
-sol2 <- cfa(model2, std.lv=TRUE, sample.cov=COV, sample.nobs=N)
+sol2 <- cfa(model2, std.lv=TRUE, sample.cov=COV_kabc, sample.nobs=200)
 summary(sol2, standardized=TRUE, rsquare=TRUE)
 parameterEstimates(sol2, standardized=TRUE)
 
