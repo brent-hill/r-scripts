@@ -1,7 +1,6 @@
 # EDUC 885 / SEM -- CFA / EXAMPLE 2
 # Data file: kabc.rda
 # - Matrix: COV_kabc (covariance matrix)
-# - Scalar: N (sample size)
 
 # Example notes:
 # - Initial model specified with orthogonal (uncorrelated) factors per
@@ -21,7 +20,8 @@ Seq ~~ 0*Sim
 '
 
 # Parameter estimates and significance tests
-sol1 <- cfa(model1, std.lv=TRUE, sample.cov=COV_kabc, sample.nobs=200)  # UVI specified here with `std.lv=TRUE`
+# - Note: UVI specified in `cfa()` with `std.lv=TRUE`
+sol1 <- cfa(model1, std.lv=TRUE, sample.cov=COV_kabc, sample.nobs=200)
 summary(sol1, standardized=TRUE, rsquare=TRUE)
 parameterEstimates(sol1, standardized=TRUE)
 
@@ -44,23 +44,7 @@ modificationIndices(sol1, minimum.value=10)
 model2 <- '
 Seq =~ hm + nr + wo
 Sim =~ gc + tr + sm + ma + ps
-Seq ~~ Sim
 '
-sol2 <- cfa(model2, std.lv=TRUE, sample.cov=COV_kabc, sample.nobs=200)
-summary(sol2, standardized=TRUE, rsquare=TRUE)
-parameterEstimates(sol2, standardized=TRUE)
-
-# Global fit
-fitMeasures(sol2, c("chisq","df","pvalue"))
-fitMeasures(sol2, c("RMSEA","CFI","SRMR"))
-
-# Local fit
-# - Covariance residuals
-residuals(sol2, type="normalized")
-residuals(sol2, type="standardized")
-residuals(sol2, type="cor")
-# - Modification indices
-modificationIndices(sol2, minimum.value=10)
 
 
 # Model 3 -----------------------------------------------------------------
@@ -71,8 +55,7 @@ modificationIndices(sol2, minimum.value=10)
 model3 <- '
 Seq =~ hm + nr + wo
 Sim =~ gc + tr + sm + ma + ps
-Seq ~~ Sim
-nr ~~ wo
+wo ~~ nr
 '
 
 # Factor Reliability and AVE ----------------------------------------------

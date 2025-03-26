@@ -6,6 +6,7 @@
 # - Classic dataset from Holzinger and Swineford (1939)
 # - Initial model (model 1) intentionally misspecified (`lozenges` loaded
 #   on `Verbal`)
+# - This example uses ULI (`visperc` and `parcomp` are the markers).
 
 
 # Model 1 -----------------------------------------------------------------
@@ -13,12 +14,10 @@
 model1 <- '
 Spatial =~ visperc + cubes
 Verbal =~ parcomp + sencomp + wordmng + lozenges
-# Spatial ~~ 1*Spatial
-# Verbal ~~ 1*Verbal
 '
 
 # Parameter estimates and significance tests
-sol1 <- cfa(model1, scores, std.lv=TRUE) #, auto.fix.first=FALSE)
+sol1 <- cfa(model1, scores)
 summary(sol1, standardized=TRUE, rsquare=TRUE)
 parameterEstimates(sol1, standardized=TRUE)
 
@@ -36,13 +35,19 @@ modificationIndices(sol1, minimum.value=10)
 
 
 # Model 2 -----------------------------------------------------------------
-# - Modification: Add loading for Spatial → lozenges
+# - Modification: Add loading for `lozenges` on `Spatial`
 
 model2 <- '
-Spatial =~ 1*visperc + cubes + lozenges
-Verbal =~ lozenges + 1*parcomp + sencomp + wordmng
-Spatial ~~ Verbal
+Spatial =~ visperc + cubes + lozenges
+Verbal =~ parcomp + sencomp + wordmng + lozenges
 '
+# Next steps: Should we leave the loading for `lozenges` onto `Verbal`?
 
 
-# Next steps: Should we leave the loading for Verbal → lozenges?
+# Model 3 -----------------------------------------------------------------
+# - Modification: Removed loading for `lozenges` on `Verbal`
+
+model3 <- '
+Spatial =~ visperc + cubes + lozenges
+Verbal =~ parcomp + sencomp + wordmng
+'
