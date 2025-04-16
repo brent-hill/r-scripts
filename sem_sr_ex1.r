@@ -16,8 +16,8 @@ Eta2 =~ y4 + y5 + y6
 '
 sol.msub1 <- cfa(msubmodel1, sample.cov=COV, sample.nobs=232)
 parameterEstimates(sol.msub1, standardized=TRUE)
-fitMeasures(sol.msub1, "chisq","df","pvalue")
-fitMeasures(sol.msub1, "cfi","rmsea","srmr")
+fitMeasures(sol.msub1, c("chisq","df","pvalue"))
+fitMeasures(sol.msub1, c("cfi","rmsea","srmr"))
 residuals(sol.msub1, type="normalized")
 modificationIndices(sol.msub1, minimum.value=10, sort=TRUE)
 
@@ -44,7 +44,7 @@ Eta2 ~ Ksi1 + Ksi2 + Eta1
 '
 sol1 <- sem(model1, sample.cov=COV, sample.nobs=232)
 parameterEstimates(model1, standardized=TRUE)
-fitMeasures(model1, "chisq","df","pvalue")
-fitMeasures(model1, "cfi","rmsea","srmr")
+fitMeasures(model1, c("chisq","df","pvalue"))
+fitMeasures(model1, c("cfi","rmsea","srmr"))
 residuals(model1, type="normalized")
 modificationIndices(model1, minimum.value=10, sort=TRUE)
