@@ -8,6 +8,7 @@ library(lavaan)
 
 # Measurement Submodel ----------------------------------------------------
 
+## Initial measurement submodel -------------------------------------------
 msubmodel1 <- '
 Ksi1 =~ x1 + x2 + x3
 Ksi2 =~ x4 + x5 + x6
@@ -21,7 +22,8 @@ fitMeasures(sol.msub1, c("cfi","rmsea","srmr"))
 residuals(sol.msub1, type="normalized")
 modificationIndices(sol.msub1, minimum.value=10, sort=TRUE)
 
-# # Optional modification
+## Modified measurement submodel ------------------------------------------
+## - Modification: Correlated measurement errors for `y4` and `y5`
 msubmodel2 <- '
 Ksi1 =~ x1 + x2 + x3
 Ksi2 =~ x4 + x5 + x6
@@ -33,6 +35,7 @@ y4 ~~ y5
 
 # Full SR Model -----------------------------------------------------------
 
+## Measurement submodel and structural submodel ---------------------------
 model1 <- '
 Ksi1 =~ x1 + x2 + x3
 Ksi2 =~ x4 + x5 + x6
